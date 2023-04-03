@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import ProductCart from "./ProductCart";
+import FilterMenu from "./FilterMenu";
 
 async function getStripeProducts() {
   const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
@@ -7,6 +7,7 @@ async function getStripeProducts() {
   });
   const res = await stripe.prices.list({
     expand: ["data.product"],
+    limit: 100,
   });
   const prices = res.data;
   return prices;
@@ -20,10 +21,8 @@ export const metadata = {
 export default async function MealsPage() {
   const products = await getStripeProducts();
   return (
-    <div className="flex flex-wrap justify-center gap-4">
-      {products.map((p) => (
-        <ProductCart key={p.id} product={p} />
-      ))}
+    <div className="flex flex-col gap-4">
+      <FilterMenu prices={products} />
     </div>
   );
 }

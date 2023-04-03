@@ -3,11 +3,11 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="flex h-20 items-center justify-between px-6 py-2">
+    <nav className="flex h-20 items-center justify-between px-6 py-2 shadow-md shadow-slate-800">
       <Link className="text-xl hover:underline" href={"/"}>
-        Res
+        Foodel
       </Link>
-      <div>
+      <div className="flex items-center gap-2">
         <Link href={"/meals"}>Meals</Link>
       </div>
     </nav>
