@@ -3,8 +3,11 @@
 import React from "react";
 import Stripe from "stripe";
 import { toast } from "react-hot-toast";
+import { useUser } from "@clerk/nextjs";
 
 const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
+  const { user } = useUser();
+
   const product = price.product as Stripe.Product;
   const productData = {
     id: price.id,
@@ -15,6 +18,10 @@ const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
   };
 
   const addToCart = async (productData: CartItem) => {
+    if (!user) {
+      toast.error("You must be logged in to add items to cart");
+      return;
+    }
     try {
       await fetch("/api/db", {
         method: "POST",
