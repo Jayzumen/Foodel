@@ -18,10 +18,6 @@ const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
   };
 
   const addToCart = async (productData: CartItem) => {
-    if (!user) {
-      toast.error("You must be logged in to add items to cart");
-      return;
-    }
     try {
       await fetch("/api/db", {
         method: "POST",
@@ -35,19 +31,19 @@ const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
     }
   };
 
-  return (
-    <button
-      onClick={() =>
-        toast.promise(addToCart(productData), {
-          loading: "Adding to cart",
-          success: "Added to cart",
-          error: "Failed to add to cart",
-        })
-      }
-    >
-      Add to Cart
-    </button>
-  );
+  const cartHandler = () => {
+    if (!user) {
+      toast.error("You must be logged in to add items to cart");
+      return;
+    }
+    toast.promise(addToCart(productData), {
+      loading: "Adding to cart",
+      success: "Added to cart",
+      error: "Failed to add to cart",
+    });
+  };
+
+  return <button onClick={() => cartHandler()}>Add to Cart</button>;
 };
 
 export default CartButton;
