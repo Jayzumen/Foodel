@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Stripe from "stripe";
+import CartButton from "./CartButton";
 
 async function getProduct(id: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
@@ -55,6 +56,7 @@ export default async function MealPage({ params }: { params: { id: string } }) {
           currency: "EUR",
         })}
       </p>
+      <CartButton price={price} />
     </div>
   );
 }

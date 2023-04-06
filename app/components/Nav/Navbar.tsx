@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import AuthButtons from "./AuthButtons";
 
 const Navbar = () => {
   return (
@@ -7,8 +8,10 @@ const Navbar = () => {
       <Link className="text-xl hover:underline" href={"/"}>
         Foodel
       </Link>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4">
         <Link href={"/meals"}>Meals</Link>
+        <Link href={"/cart"}>Cart</Link>
+        <AuthButtons />
       </div>
     </nav>
   );
