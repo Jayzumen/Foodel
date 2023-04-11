@@ -11,7 +11,7 @@ const CartItemDisplay = ({ cartItems }: { cartItems: Cart[] }) => {
         <>
           <div className="flex flex-wrap justify-center gap-8 px-10 py-4">
             {cartItems[0]?.items?.map((item) => (
-              <CartItem item={item} />
+              <CartItem key={item.id} item={item} />
             ))}
           </div>
           <CheckOutButton cartItems={cartItems} />
