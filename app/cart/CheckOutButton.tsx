@@ -4,9 +4,8 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 const CheckOutButton = ({ cartItems }: { cartItems: Cart[] }) => {
-  if (cartItems[0].items?.length === 0) return null;
-
   const router = useRouter();
+  if (cartItems[0].items?.length === 0) return null;
 
   async function checkOut() {
     const lineItems = cartItems[0].items?.map((item) => {
