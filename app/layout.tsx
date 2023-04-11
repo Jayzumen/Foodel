@@ -1,7 +1,6 @@
-import { User } from "@clerk/nextjs/dist/api";
 import Navbar from "./components/Nav/Navbar";
 import "./globals.css";
-import { ClerkProvider, currentUser } from "@clerk/nextjs/app-beta";
+import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { dark } from "@clerk/themes";
 import ToastProvider from "./components/ToastProvider";
 
