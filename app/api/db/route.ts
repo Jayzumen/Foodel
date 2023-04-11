@@ -4,7 +4,7 @@ import { Cart } from "@/types/db";
 import { auth } from "@clerk/nextjs/app-beta";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import { eq } from "drizzle-orm/expressions";
+import { and, eq } from "drizzle-orm/expressions";
 
 export async function GET(req: Request) {
   const { userId } = auth();

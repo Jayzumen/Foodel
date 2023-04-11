@@ -1,10 +1,7 @@
-import Stripe from "stripe";
 import FilterMenu from "./FilterMenu";
+import { stripe } from "@/lib/stripe";
 
 async function getStripeProducts() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
-    apiVersion: "2022-11-15",
-  });
   const res = await stripe.prices.list({
     expand: ["data.product"],
     limit: 100,
