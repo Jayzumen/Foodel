@@ -19,7 +19,7 @@ const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
 
   const addToCart = async (productData: CartItem) => {
     try {
-      await fetch("/api/db", {
+      await fetch("/api/meals", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

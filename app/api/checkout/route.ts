@@ -1,5 +1,19 @@
+import { prisma } from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
+import { auth } from "@clerk/nextjs/app-beta";
 import { NextResponse } from "next/server";
+
+export async function GET(req: Request) {
+  const { userId } = auth();
+
+  const cartData = await prisma.cart.findFirst({
+    where: {
+      userId: userId!,
+    },
+  });
+
+  return NextResponse.json(cartData);
+}
 
 export async function POST(req: Request) {
   const body = await req.json();

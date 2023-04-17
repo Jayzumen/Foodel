@@ -1,16 +1,15 @@
 "use client";
-import { Cart } from "@/types/db";
+import { CartProduct } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import React from "react";
 
-const CheckOutButton = ({ cartItems }: { cartItems: Cart[] }) => {
+const CheckOutButton = ({ cartItems }: { cartItems: CartProduct[] }) => {
   const router = useRouter();
-  if (cartItems[0].items?.length === 0) return null;
+  if (cartItems.length === 0) return null;
 
   async function checkOut() {
-    const lineItems = cartItems[0].items?.map((item) => {
+    const lineItems = cartItems.map((item) => {
       return {
-        price: item.id,
+        price: item.productId,
         quantity: item.quantity,
       };
     });
@@ -30,7 +29,7 @@ const CheckOutButton = ({ cartItems }: { cartItems: Cart[] }) => {
       className="mx-auto w-fit rounded-lg bg-lime-700 px-4 py-2 text-xl transition-colors duration-200 hover:bg-lime-800"
       onClick={checkOut}
     >
-      Check Out
+      Checkout
     </button>
   );
 };

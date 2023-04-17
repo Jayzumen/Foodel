@@ -3,6 +3,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { dark } from "@clerk/themes";
 import ToastProvider from "./components/ToastProvider";
+import QueryProvider from "./components/QueryProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const metadata = {
   title: "Foodel",
@@ -22,9 +24,12 @@ export default async function RootLayout({
     >
       <html lang="en">
         <body className="bg-slate-900 text-white">
-          <Navbar />
-          <main className="min-h-[calc(100vh-80px)]">{children}</main>
-          <ToastProvider />
+          <QueryProvider>
+            <Navbar />
+            <main className="min-h-[calc(100vh-80px)]">{children}</main>
+            <ToastProvider />
+            <ReactQueryDevtools />
+          </QueryProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -1,7 +1,5 @@
-import { db } from "@/db/db";
-import { cart } from "@/db/schema";
+import { prisma } from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/app-beta";
-import { eq } from "drizzle-orm/expressions";
 import Link from "next/link";
 
 export default function SuccessPage() {
@@ -9,7 +7,11 @@ export default function SuccessPage() {
 
   async function clearItems() {
     try {
-      await db.delete(cart).where(eq(cart.userId, userId!));
+      await prisma.cart.deleteMany({
+        where: {
+          userId: userId!,
+        },
+      });
       console.log("cart deleted");
     } catch (error) {
       console.log(error);
