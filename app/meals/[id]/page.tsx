@@ -20,16 +20,16 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   };
 }
 
-// export async function generateStaticParams() {
-//   const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
-//     apiVersion: "2022-11-15",
-//   });
-//   const res = await stripe.prices.list({
-//     expand: ["data.product"],
-//   });
-//   const prices = res.data;
-//   return prices.map((p) => ({ id: p.id.replace("price_", "") }));
-// }
+export async function generateStaticParams() {
+  const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
+    apiVersion: "2022-11-15",
+  });
+  const res = await stripe.prices.list({
+    expand: ["data.product"],
+  });
+  const prices = res.data;
+  return prices.map((p) => ({ id: p.id.replace("price_", "") }));
+}
 
 export default async function MealPage({ params }: { params: { id: string } }) {
   const price = await getProduct(params.id);
