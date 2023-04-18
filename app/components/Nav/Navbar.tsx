@@ -9,8 +9,12 @@ const Navbar = () => {
         Foodel
       </Link>
       <div className="flex items-center gap-4">
-        <Link href={"/meals"}>Meals</Link>
-        <Link href={"/cart"}>Cart</Link>
+        <Link className="hover:underline" href={"/meals"}>
+          Meals
+        </Link>
+        <Link className="hover:underline" href={"/cart"}>
+          Cart
+        </Link>
         <AuthButtons />
       </div>
     </nav>

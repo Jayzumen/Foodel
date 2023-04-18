@@ -13,7 +13,6 @@ async function getCartItems() {
       },
     });
     if (!cart) {
-      // user does not have a cart
       return [];
     }
     const cartItems = await prisma.cartProduct.findMany({
@@ -22,8 +21,7 @@ async function getCartItems() {
         cartId: cart.id,
       },
     });
-    if (cartItems) {
-      // cart is empty
+    if (!cartItems) {
       return [];
     }
     return cartItems;

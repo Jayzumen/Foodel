@@ -5,6 +5,7 @@ import CheckOutButton from "./CheckOutButton";
 import { getCartItemsQ } from "./CartItemDisplay";
 import { CartProduct } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
+import { LoadingSpinner } from "../components/loadingFunctions";
 
 const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
   const { user } = useUser();
@@ -16,7 +17,7 @@ const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
   return (
     <div className="flex flex-col gap-2">
       {status === "loading" ? (
-        <p>Loading...</p>
+        <LoadingSpinner size={30} />
       ) : status === "error" ? (
         <p>Error</p>
       ) : (

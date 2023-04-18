@@ -9,9 +9,9 @@ const ProductCart = ({ product }: { product: Stripe.Price }) => {
   return (
     <Link
       href={`/meals/${product.id.split("_")[1]}`}
-      className="flex flex-col items-center gap-2 px-8 py-4"
+      className="flex flex-col items-center gap-2"
     >
-      <div className="relative h-[250px] w-[250px]">
+      <div className="relative h-[275px] w-[275px]">
         <Image
           className="object-cover"
           fill
@@ -19,13 +19,12 @@ const ProductCart = ({ product }: { product: Stripe.Price }) => {
           alt={productInfo.name}
         />
       </div>
-      <p>{productInfo.name}</p>
-      <p>
-        {(product.unit_amount! / 100).toLocaleString("de", {
-          style: "currency",
-          currency: "EUR",
-        })}
-      </p>
+      <p className="text-xl">{`${productInfo.name} (${(
+        product.unit_amount! / 100
+      ).toLocaleString("de", {
+        style: "currency",
+        currency: "EUR",
+      })})`}</p>
     </Link>
   );
 };

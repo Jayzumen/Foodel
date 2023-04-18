@@ -43,7 +43,14 @@ const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
     });
   };
 
-  return <button onClick={() => cartHandler()}>Add to Cart</button>;
+  return (
+    <button
+      className="rounded-lg border border-slate-700 bg-green-700 px-4 py-2 text-2xl font-semibold text-slate-200 hover:bg-green-800 "
+      onClick={() => cartHandler()}
+    >
+      Add to Cart
+    </button>
+  );
 };
 
 export default CartButton;

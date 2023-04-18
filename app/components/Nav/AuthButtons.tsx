@@ -13,7 +13,6 @@ const AuthButtons = () => {
     <div>
       <SignedIn>
         <UserButton
-          showName
           afterSignOutUrl={
             process.env.NODE_ENV === "development"
               ? "http://localhost:3000/"

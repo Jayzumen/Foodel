@@ -99,13 +99,13 @@ const FilterMenu = ({ prices }: { prices: Stripe.Price[] }) => {
       </ul>
       <div className="my-4">
         {filteredData.length > 0 ? (
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="mx-auto flex max-w-[1300px] flex-wrap justify-center gap-8 py-4">
             {filteredData.map((product) => (
               <ProductCart key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="mx-auto flex max-w-[1300px] flex-wrap justify-center gap-8 py-4">
             {prices.map((p) => (
               <ProductCart key={p.id} product={p} />
             ))}
