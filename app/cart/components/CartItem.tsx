@@ -6,7 +6,7 @@ import QButton from "./QButton";
 import RemoveButton from "./RemoveButton";
 import { QueryObserverResult, useQuery } from "@tanstack/react-query";
 import { CartProduct } from "@prisma/client";
-import { LoadingSpinner } from "../components/loadingFunctions";
+import { LoadingSpinner } from "@/app/components/loadingFunctions";
 
 export async function getCartItem(id: string) {
   const res = await fetch(`/api/meals/${id}`, {

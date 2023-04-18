@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/app-beta";
 import { redirect } from "next/navigation";
-import CartItemDisplay from "./CartItemDisplay";
 import { prisma } from "@/lib/prismadb";
+import CartItemDisplay from "./components/CartItemDisplay";
 
 async function getCartItems() {
   const user = await currentUser();
@@ -29,6 +29,10 @@ async function getCartItems() {
     console.log(error);
   }
 }
+
+export const metadata = {
+  title: "Foodel - Cart",
+};
 
 export default async function CartPage() {
   const user = await currentUser();

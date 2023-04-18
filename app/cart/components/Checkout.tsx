@@ -5,7 +5,7 @@ import CheckOutButton from "./CheckOutButton";
 import { getCartItemsQ } from "./CartItemDisplay";
 import { CartProduct } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
-import { LoadingSpinner } from "../components/loadingFunctions";
+import { LoadingSpinner } from "../../components/loadingFunctions";
 
 const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
   const { user } = useUser();

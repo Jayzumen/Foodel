@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
+export const metadata = {
+  title: "Foodel - Impressum",
+};
+
 export default function ImpressumPage() {
   return (
     <div className="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">

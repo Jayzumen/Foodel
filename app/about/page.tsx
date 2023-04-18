@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Foodel - About",
+};
+
 export default function AboutPage() {
   return (
     <div className="mx-auto my-4 flex max-w-7xl flex-col items-center gap-4 px-4 sm:px-6 lg:px-8">
@@ -17,8 +21,8 @@ export default function AboutPage() {
         <p>
           Our mission is to bring the authentic taste of Italy to your home,
           using only the freshest, high-quality ingredients. We spent months
-          researching and testing recipes to perfect our menu, and now we're
-          proud to offer a wide variety of mouth-watering dishes.
+          researching and testing recipes to perfect our menu, and now
+          we&apos;re proud to offer a wide variety of mouth-watering dishes.
         </p>
         <p>
           At Foodel, we offer delivery straight to your door, so you can enjoy a
