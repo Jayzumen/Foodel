@@ -11,11 +11,15 @@ export async function GET(req: Request) {
     },
   });
 
+  if (!cartData) return NextResponse.json([]);
+
   const cartProducts = await prisma.cartProduct.findMany({
     where: {
       cartId: cartData?.id,
     },
   });
+
+  if (!cartProducts) return NextResponse.json([]);
 
   return NextResponse.json(cartProducts);
 }
@@ -45,6 +49,7 @@ export async function POST(req: Request) {
       where: {
         cartId: cartData?.id,
         productId: productData.id,
+        userId: userId!,
       },
     });
 
@@ -63,6 +68,7 @@ export async function POST(req: Request) {
           data: {
             cartId: cartData.id,
             productId: productData.id,
+            userId: userId!,
             name: productData.name,
             image: productData.image,
             price: productData.price,
@@ -70,22 +76,6 @@ export async function POST(req: Request) {
           },
         });
       }
-
-      await prisma.cart.update({
-        where: {
-          id: cartData.id,
-        },
-        data: {
-          products: {
-            connect: {
-              cartId_productId: {
-                cartId: cartData.id,
-                productId: productData.id,
-              },
-            },
-          },
-        },
-      });
     } else {
       const cart = await prisma.cart.create({
         data: {
@@ -98,23 +88,11 @@ export async function POST(req: Request) {
         data: {
           cartId: cart.id,
           productId: productData.id,
+          userId: userId!,
           name: productData.name,
           image: productData.image,
           price: productData.price,
           quantity: productData.quantity,
-        },
-      });
-
-      await prisma.cart.update({
-        where: {
-          id: cart.id,
-        },
-        data: {
-          products: {
-            connect: {
-              ...cartProduct,
-            },
-          },
         },
       });
     }

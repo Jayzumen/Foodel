@@ -3,21 +3,33 @@ import { redirect } from "next/navigation";
 import CartItemDisplay from "./CartItemDisplay";
 import { prisma } from "@/lib/prismadb";
 
-export const revalidate = 1;
-
 async function getCartItems() {
   const user = await currentUser();
-  const cart = await prisma.cart.findFirst({
-    where: {
-      userId: user?.id,
-    },
-  });
-  const cartItems = await prisma.cartProduct.findMany({
-    where: {
-      cartId: cart?.id,
-    },
-  });
-  return cartItems;
+  if (!user) return [];
+  try {
+    const cart = await prisma.cart.findFirst({
+      where: {
+        userId: user?.id,
+      },
+    });
+    if (!cart) {
+      // user does not have a cart
+      return [];
+    }
+    const cartItems = await prisma.cartProduct.findMany({
+      where: {
+        userId: user?.id,
+        cartId: cart.id,
+      },
+    });
+    if (cartItems) {
+      // cart is empty
+      return [];
+    }
+    return cartItems;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default async function CartPage() {
@@ -32,7 +44,7 @@ export default async function CartPage() {
   return (
     <div className="flex flex-col gap-4">
       <p className="pt-4 text-center text-3xl capitalize">Your order:</p>
-      <CartItemDisplay cartItems={cartItems} />
+      {cartItems && <CartItemDisplay cartItems={cartItems} />}
     </div>
   );
 }

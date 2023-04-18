@@ -12,7 +12,14 @@ const AuthButtons = () => {
   return (
     <div>
       <SignedIn>
-        <UserButton showName />
+        <UserButton
+          showName
+          afterSignOutUrl={
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000/"
+              : "https://foodel-jn.vercel.app/"
+          }
+        />
       </SignedIn>
       <SignedOut>
         <button onClick={() => openSignIn()}>Sign In</button>

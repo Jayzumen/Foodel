@@ -4,9 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import CheckOutButton from "./CheckOutButton";
 import { getCartItemsQ } from "./CartItemDisplay";
 import { CartProduct } from "@prisma/client";
+import { useUser } from "@clerk/nextjs";
 
 const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
-  const { data: cartTotal, status } = useQuery(["cartTotal"], getCartItemsQ);
+  const { user } = useUser();
+  const { data: cartTotal, status } = useQuery(
+    [`cartTotal for ${user?.id}`],
+    getCartItemsQ
+  );
 
   return (
     <div className="flex flex-col gap-2">
@@ -16,7 +21,7 @@ const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
         <p>Error</p>
       ) : (
         cartTotal && (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-row gap-2 md:flex-col lg:flex-row">
             <p>
               Subtotal{" "}
               <span>{`(${cartTotal.reduce(

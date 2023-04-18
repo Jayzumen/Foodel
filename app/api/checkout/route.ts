@@ -39,3 +39,21 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function DELETE(req: Request) {
+  const { userId } = auth();
+
+  try {
+    await prisma.cart.delete({
+      where: {
+        userId: userId!,
+      },
+    });
+    return NextResponse.json("Deleted");
+  } catch (err) {
+    console.log(err);
+    return new Response("Error", {
+      status: 405,
+    });
+  }
+}

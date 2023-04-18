@@ -21,6 +21,7 @@ model CartProduct {
   id        String      @id @default(uuid())
   cartId    String
   productId String
+  userId    String
   name      String
   price     Int
   image     String
@@ -28,8 +29,6 @@ model CartProduct {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   cart      Cart        @relation(fields: [cartId], references: [id], onDelete: Cascade)
-
-  @@unique([cartId, productId])
 }
 
 model Cart {
