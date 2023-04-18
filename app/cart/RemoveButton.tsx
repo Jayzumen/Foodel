@@ -26,7 +26,11 @@ const RemoveButton = ({
   }
 
   return (
-    <button title="Remove Meal" onClick={() => removeItem(data.productId)}>
+    <button
+      aria-label="Remove meal from cart"
+      title="Remove Meal"
+      onClick={() => removeItem(data.productId)}
+    >
       <AiOutlineDelete
         size={35}
         className="m-2 rounded-full transition-colors duration-200 hover:text-slate-400"

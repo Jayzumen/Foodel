@@ -8,6 +8,7 @@ const ProductCart = ({ product }: { product: Stripe.Price }) => {
 
   return (
     <Link
+      aria-label="Go to meal page"
       href={`/meals/${product.id.split("_")[1]}`}
       className="flex flex-col items-center gap-2"
     >

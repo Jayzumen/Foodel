@@ -4,10 +4,18 @@ export default function Footer() {
   return (
     <footer className="mt-auto flex flex-col items-center justify-center gap-2 border-t border-t-slate-700 py-4">
       <div className="flex gap-4">
-        <Link className="hover:underline" href={"/about"}>
+        <Link
+          aria-label="link to About page"
+          className="hover:underline"
+          href={"/about"}
+        >
           About
         </Link>
-        <Link className="hover:underline" href={"/impressum"}>
+        <Link
+          aria-label="link to Impressum page"
+          className="hover:underline"
+          href={"/impressum"}
+        >
           Impressum
         </Link>
       </div>

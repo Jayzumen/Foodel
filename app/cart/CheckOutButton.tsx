@@ -26,6 +26,7 @@ const CheckOutButton = ({ cartItems }: { cartItems: CartProduct[] }) => {
 
   return (
     <button
+      aria-label="Checkout button"
       className="mx-auto w-fit rounded-lg bg-lime-700 px-4 py-2 text-xl transition-colors duration-200 hover:bg-lime-800"
       onClick={checkOut}
     >

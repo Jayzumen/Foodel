@@ -54,6 +54,7 @@ const CartItem = ({
             </div>
             <div className="flex min-w-[45%] flex-col gap-2">
               <Link
+                aria-label="Go to meal page"
                 href={`/meals/${data.productId.split("_")[1]}`}
                 className="text-2xl hover:underline"
               >

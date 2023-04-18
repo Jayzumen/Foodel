@@ -5,14 +5,26 @@ import AuthButtons from "./AuthButtons";
 const Navbar = () => {
   return (
     <nav className="flex h-20 items-center justify-between px-6 py-2 shadow-md shadow-slate-800">
-      <Link className="text-xl hover:underline" href={"/"}>
+      <Link
+        aria-label="Link to Homepage"
+        className="text-xl hover:underline"
+        href={"/"}
+      >
         Foodel
       </Link>
       <div className="flex items-center gap-4">
-        <Link className="hover:underline" href={"/meals"}>
+        <Link
+          aria-label="Link to meals page"
+          className="hover:underline"
+          href={"/meals"}
+        >
           Meals
         </Link>
-        <Link className="hover:underline" href={"/cart"}>
+        <Link
+          aria-label="link to cart page"
+          className="hover:underline"
+          href={"/cart"}
+        >
           Cart
         </Link>
         <AuthButtons />

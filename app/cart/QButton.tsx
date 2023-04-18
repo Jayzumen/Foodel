@@ -30,6 +30,7 @@ const AddButton = ({
 
   return (
     <select
+      aria-label="Select quantity"
       name="quantity"
       id="product-quantity"
       className="cursor-pointer rounded-sm py-1 text-xs font-medium text-black transition-colors hover:bg-neutral-100 active:bg-white md:text-sm"
