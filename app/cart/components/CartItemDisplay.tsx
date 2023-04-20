@@ -20,18 +20,10 @@ const CartItemDisplay = ({ cartItems }: { cartItems: CartProduct[] }) => {
   const { user } = useUser();
 
   const { data, status } = useQuery(
-    [`cartitems for ${user?.id}`],
+    [`cartItems for ${user?.id}`],
     getCartItemsQ,
     {
       initialData: cartItems,
-    }
-  );
-
-  const { data: cartTotal, refetch } = useQuery(
-    [`cartTotal for ${user?.id}`],
-    getCartItemsQ,
-    {
-      initialData: data,
     }
   );
 
@@ -43,12 +35,12 @@ const CartItemDisplay = ({ cartItems }: { cartItems: CartProduct[] }) => {
         <p>Error</p>
       ) : (
         <div className="flex flex-wrap justify-center gap-4">
-          {cartTotal && <Checkout cartItems={cartTotal} />}
+          {data && <Checkout />}
           <div className="flex flex-col justify-center gap-8 px-10 py-4">
             {data
               ?.sort((a, b) => a.name.toLowerCase().localeCompare(b.name))
               .map((item) => (
-                <CartItem key={item.id} item={item} totalRefetch={refetch} />
+                <CartItem key={item.id} item={item} />
               ))}
           </div>
         </div>

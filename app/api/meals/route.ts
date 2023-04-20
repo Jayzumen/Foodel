@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const { userId } = auth();
 
+  if (!userId) return NextResponse.json([]);
+
   const cartData = await prisma.cart.findFirst({
     where: {
       userId: userId!,

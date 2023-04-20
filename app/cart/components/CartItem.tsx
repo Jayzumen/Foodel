@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import QButton from "./QButton";
 import RemoveButton from "./RemoveButton";
-import { QueryObserverResult, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { CartProduct } from "@prisma/client";
 import { LoadingSpinner } from "@/app/components/loadingFunctions";
 
@@ -19,18 +19,10 @@ export async function getCartItem(id: string) {
   return data as CartProduct;
 }
 
-const CartItem = ({
-  item,
-  totalRefetch,
-}: {
-  item: CartProduct;
-  totalRefetch: () => Promise<QueryObserverResult<CartProduct[], unknown>>;
-}) => {
-  const {
-    data,
-    status,
-    refetch: itemRefetch,
-  } = useQuery([`${item.name}`], () => getCartItem(item.productId));
+const CartItem = ({ item }: { item: CartProduct }) => {
+  const { data, status } = useQuery([`${item.name}`], () =>
+    getCartItem(item.productId)
+  );
 
   return (
     <>
@@ -71,16 +63,8 @@ const CartItem = ({
                 )}
               </p>
               <div className="flex items-center justify-center gap-2">
-                <QButton
-                  data={data}
-                  itemRefetch={itemRefetch}
-                  totalRefetch={totalRefetch}
-                />
-                <RemoveButton
-                  data={data}
-                  itemRefetch={itemRefetch}
-                  totalRefetch={totalRefetch}
-                />
+                <QButton data={data} />
+                <RemoveButton data={data} />
               </div>
             </div>
           </div>

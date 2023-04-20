@@ -3,17 +3,11 @@
 import { useUser } from "@clerk/nextjs";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const ClearCart = () => {
   const queryClient = useQueryClient();
   const { user } = useUser();
-  const router = useRouter();
-
-  if (!user) {
-    router.push("/");
-  }
 
   async function clearItems() {
     try {

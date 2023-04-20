@@ -10,7 +10,7 @@ import {
 const AuthButtons = () => {
   const { openSignIn } = useClerk();
   return (
-    <div>
+    <div className="pl-4">
       <SignedIn>
         <UserButton
           afterSignOutUrl={

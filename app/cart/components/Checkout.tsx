@@ -7,10 +7,10 @@ import { CartProduct } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 import { LoadingSpinner } from "../../components/loadingFunctions";
 
-const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
+const Checkout = () => {
   const { user } = useUser();
   const { data: cartTotal, status } = useQuery(
-    [`cartTotal for ${user?.id}`],
+    [`cartItems for ${user?.id}`],
     getCartItemsQ
   );
 
@@ -45,7 +45,7 @@ const Checkout = ({ cartItems }: { cartItems: CartProduct[] }) => {
           </div>
         )
       )}
-      <CheckOutButton cartItems={cartItems} />
+      {cartTotal && <CheckOutButton cartItems={cartTotal} />}
     </div>
   );
 };

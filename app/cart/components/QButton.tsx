@@ -1,32 +1,33 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import { CartProduct } from "@prisma/client";
-import { QueryObserverResult } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-const AddButton = ({
-  data,
-  itemRefetch,
-  totalRefetch,
-}: {
-  data: CartProduct;
-  itemRefetch: () => Promise<QueryObserverResult<CartProduct, unknown>>;
-  totalRefetch: () => Promise<QueryObserverResult<CartProduct[], unknown>>;
-}) => {
+const AddButton = ({ data }: { data: CartProduct }) => {
+  const { user } = useUser();
   const [selectedQuantity, setSelectedQuantity] = useState(data.quantity);
 
-  async function updateQuantity(id: string, quantity: number) {
-    await fetch(`/api/meals/${id}`, {
+  async function updateQuantity(props: { id: string; quantity: number }) {
+    await fetch(`/api/meals/${props.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(quantity),
+      body: JSON.stringify(props.quantity),
     });
-    itemRefetch();
-    totalRefetch();
-    setSelectedQuantity(quantity);
+    setSelectedQuantity(props.quantity);
   }
+
+  const queryClient = useQueryClient();
+
+  const updateMutation = useMutation(updateQuantity, {
+    onSuccess: () => {
+      queryClient.invalidateQueries([`cartItems for ${user?.id}`]);
+      queryClient.invalidateQueries([`${data.name}`]);
+    },
+  });
 
   return (
     <select
@@ -37,7 +38,10 @@ const AddButton = ({
       value={selectedQuantity}
       onChange={(e) => {
         setSelectedQuantity(Number(e.target.value));
-        updateQuantity(data.productId, Number(e.target.value));
+        updateMutation.mutate({
+          id: data.productId,
+          quantity: Number(e.target.value),
+        });
       }}
     >
       {Array.from({ length: 10 }, (_, i) => i + 1).map((quantity) => (
