@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider="mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model CartProduct {
@@ -20,6 +21,8 @@ model CartProduct {
   image     String
   quantity  Int
   cart      Cart        @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  @@index([cartId])
+
 }
 
 model Cart {
