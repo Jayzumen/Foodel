@@ -19,8 +19,6 @@ model CartProduct {
   price     Int
   image     String
   quantity  Int
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
   cart      Cart        @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
 

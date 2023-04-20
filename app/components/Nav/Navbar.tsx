@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import AuthButtons from "./AuthButtons";
+import CartLink from "./CartLink";
 
 const Navbar = () => {
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
       >
         Foodel
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-8 md:gap-6">
         <Link
           aria-label="Link to meals page"
           className="hover:underline"
@@ -20,13 +21,7 @@ const Navbar = () => {
         >
           Meals
         </Link>
-        <Link
-          aria-label="link to cart page"
-          className="hover:underline"
-          href={"/cart"}
-        >
-          Cart
-        </Link>
+        <CartLink />
         <AuthButtons />
       </div>
     </nav>

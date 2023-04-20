@@ -2,7 +2,6 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ["pg"],
   },
   images: {
     domains: ["files.stripe.com"],

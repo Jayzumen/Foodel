@@ -37,16 +37,16 @@ const CartItemDisplay = ({ cartItems }: { cartItems: CartProduct[] }) => {
 
   return (
     <div className="my-4 flex flex-col items-center gap-4">
-      {status === "error" ? (
-        <p>Error</p>
-      ) : cartItems.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p className="text-center text-2xl">Your cart is empty</p>
+      ) : status === "error" ? (
+        <p>Error</p>
       ) : (
         <div className="flex flex-wrap justify-center gap-4">
           {cartTotal && <Checkout cartItems={cartTotal} />}
           <div className="flex flex-col justify-center gap-8 px-10 py-4">
             {data
-              .sort((a, b) => a.name.toLowerCase().localeCompare(b.name))
+              ?.sort((a, b) => a.name.toLowerCase().localeCompare(b.name))
               .map((item) => (
                 <CartItem key={item.id} item={item} totalRefetch={refetch} />
               ))}
