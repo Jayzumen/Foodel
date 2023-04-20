@@ -16,9 +16,10 @@ export default async function SuccessPage() {
   return (
     <div className="mt-8 flex flex-col gap-4 text-center text-2xl">
       <h1 className="text-4xl">Payment successful</h1>
+
       <p>Thank you for your purchase</p>
       <p>Enjoy your meal</p>
-      <ClearCart />
+      <ClearCart user={user} />
     </div>
   );
 }

@@ -1,37 +1,36 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/dist/api";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect } from "react";
 
-const ClearCart = () => {
+const ClearCart = ({ user }: { user: User | null }) => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
 
   async function clearItems() {
     try {
-      await fetch("/api/checkout", {
+      await fetch("/api/cart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
       queryClient.setQueryData([`cartItems for ${user?.id}`], []);
-
-      console.log("cart deleted");
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    clearItems();
-  }, []);
+    if (user) {
+      clearItems();
+    }
+  }, [user]);
 
   return (
-    <Link aria-label="Go to home page" className="hover:underline" href={"/"}>
-      Go back to Home
+    <Link aria-label="Go to home page" className="group" href={"/"}>
+      Go back to the <span className="group-hover:underline">Homepage</span>
     </Link>
   );
 };
