@@ -28,7 +28,7 @@ With Foodel, you can:
 - TypeScript
 - Tailwind
 - Stripe
-- Supabase
+- PlanetScale
 
 ## License
 
