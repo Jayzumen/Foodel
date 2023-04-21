@@ -8,8 +8,8 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       success_url:
         process.env.NODE_ENV === "development"
-          ? "http://localhost:3000/success"
-          : "https://foodel-jn.vercel.app/success",
+          ? "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}"
+          : "https://foodel-jn.vercel.app/success?session_id={CHECKOUT_SESSION_ID}",
       cancel_url:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/cart"

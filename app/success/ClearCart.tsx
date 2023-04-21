@@ -1,8 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { User } from "@clerk/nextjs/dist/api";
 import { useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
 import { useEffect } from "react";
 
 const ClearCart = ({ user }: { user: User | null }) => {
@@ -29,8 +29,8 @@ const ClearCart = ({ user }: { user: User | null }) => {
   }, [user]);
 
   return (
-    <Link aria-label="Go to home page" className="group" href={"/"}>
-      Go back to the <span className="group-hover:underline">Homepage</span>
+    <Link aria-label="Go to home page" className="hover:underline" href={"/"}>
+      Homepage
     </Link>
   );
 };

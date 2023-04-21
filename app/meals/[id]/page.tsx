@@ -2,6 +2,8 @@ import Image from "next/image";
 import Stripe from "stripe";
 import CartButton from "./CartButton";
 import { stripe } from "@/lib/stripe";
+import Link from "next/link";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 async function getProduct(id: string) {
   const res = await stripe.prices.retrieve(`price_${id}`, {
@@ -35,26 +37,35 @@ export default async function MealPage({ params }: { params: { id: string } }) {
   const price = await getProduct(params.id);
   const product = price.product as Stripe.Product;
   return (
-    <div className="flex flex-col items-center gap-2">
-      <p className="text-3xl font-semibold">{product.name}</p>
-      <div className="relative h-[350px] w-[350px]">
-        <Image
-          fill
-          className="object-cover"
-          src={product.images![0]}
-          alt={product.name}
-        />
+    <div className="flex flex-col gap-2">
+      <Link
+        className="flex w-fit items-center gap-4 px-20 py-4 transition-colors duration-200 hover:text-sky-500"
+        href={"/meals"}
+      >
+        <AiOutlineArrowLeft size={30} />
+        <p className="text-xl">Go back</p>
+      </Link>
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-3xl font-semibold">{product.name}</p>
+        <div className="relative h-[350px] w-[350px]">
+          <Image
+            fill
+            className="object-cover"
+            src={product.images![0]}
+            alt={product.name}
+          />
+        </div>
+        <p className="mx-auto max-w-[500px] text-center text-lg italic">
+          {product.description}
+        </p>
+        <p className="text-xl font-semibold">
+          {(price.unit_amount! / 100).toLocaleString("de", {
+            style: "currency",
+            currency: "EUR",
+          })}
+        </p>
+        <CartButton price={price} />
       </div>
-      <p className="mx-auto max-w-[500px] text-center text-lg italic">
-        {product.description}
-      </p>
-      <p className="text-xl font-semibold">
-        {(price.unit_amount! / 100).toLocaleString("de", {
-          style: "currency",
-          currency: "EUR",
-        })}
-      </p>
-      <CartButton price={price} />
     </div>
   );
 }
