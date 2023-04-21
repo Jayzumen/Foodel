@@ -1,17 +1,20 @@
-import { stripe } from "@/lib/stripe";
 import Footer from "./components/Footer";
-import Stripe from "stripe";
 import Image from "next/image";
 import Link from "next/link";
+import { prisma } from "@/lib/prismadb";
+import { Product } from "@prisma/client";
 
 export default async function Home() {
   async function getProducts() {
-    const res = await stripe.prices.list({
-      expand: ["data.product"],
-      limit: 4,
-    });
-    const prices = res.data;
-    return prices;
+    const res = await prisma.product.findMany();
+    const randomProducts: Product[] = [];
+    while (randomProducts.length < 4) {
+      const product = res[Math.floor(Math.random() * res.length)];
+      if (!randomProducts.includes(product)) {
+        randomProducts.push(product);
+      }
+    }
+    return randomProducts;
   }
 
   const products = await getProducts();
@@ -25,31 +28,23 @@ export default async function Home() {
         your doorstep.
       </p>
       <div className="flex flex-wrap justify-center gap-6 px-10 py-4">
-        {products.map((p) => {
-          const product = p.product as Stripe.Product;
-          return (
-            <Link
-              key={p.id}
-              href={`/meals/${p.id.split("_")[1]}`}
-              className="flex flex-col gap-2"
-            >
-              <div className="relative h-[300px] w-[300px]">
-                <Image
-                  fill
-                  className="object-cover"
-                  src={product.images![0]}
-                  alt={product.name}
-                />
-              </div>
-              <p className="text-xl">{`${product.name} (${(
-                p.unit_amount! / 100
-              ).toLocaleString("de", {
-                style: "currency",
-                currency: "EUR",
-              })})`}</p>
-            </Link>
-          );
-        })}
+        {products.map((p) => (
+          <Link
+            key={p.id}
+            href={`/meals/${p.id.split("_")[1]}`}
+            className="flex flex-col gap-2"
+          >
+            <div className="relative h-[300px] w-[300px]">
+              <Image fill className="object-cover" src={p.image} alt={p.name} />
+            </div>
+            <p className="text-xl">{`${p.name} (${(
+              p.price / 100
+            ).toLocaleString("de", {
+              style: "currency",
+              currency: "EUR",
+            })})`}</p>
+          </Link>
+        ))}
       </div>
       <Footer />
     </div>

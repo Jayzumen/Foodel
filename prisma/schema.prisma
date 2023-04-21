@@ -11,6 +11,15 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Product {
+  id       String      @id 
+  name     String
+  price    Int
+  description String
+  image    String
+  category String
+}
+
 model CartProduct {
   id        String      @id @default(uuid())
   cartId    String
@@ -22,7 +31,6 @@ model CartProduct {
   quantity  Int
   cart      Cart        @relation(fields: [cartId], references: [id], onDelete: Cascade)
   @@index([cartId])
-
 }
 
 model Cart {

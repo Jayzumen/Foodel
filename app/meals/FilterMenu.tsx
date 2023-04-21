@@ -1,81 +1,56 @@
 "use client";
 
-import Stripe from "stripe";
 import { useState } from "react";
 import ProductCart from "./ProductCart";
+import { Product } from "@prisma/client";
 
 const Filter = [
   {
     id: "1",
     name: "All",
-    filter: (productData: Stripe.Price[]) => productData,
+    filter: (productData: Product[]) => productData,
   },
   {
     id: "2",
     name: "Appetizers",
-    filter: (productData: Stripe.Price[]) =>
-      productData.filter(
-        (p): p is Stripe.Price & { product: Stripe.Product } =>
-          typeof p.product !== "string" &&
-          "metadata" in p.product &&
-          p.product.metadata.category === "Appetizers"
-      ),
+    filter: (productData: Product[]) =>
+      productData.filter((p) => p.category === "Appetizers"),
   },
   {
     id: "3",
     name: "Pizza",
-    filter: (productData: Stripe.Price[]) =>
-      productData.filter(
-        (p): p is Stripe.Price & { product: Stripe.Product } =>
-          typeof p.product !== "string" &&
-          "metadata" in p.product &&
-          p.product.metadata.category === "Pizza"
-      ),
+    filter: (productData: Product[]) =>
+      productData.filter((p) => p.category === "Pizza"),
   },
   {
     id: "4",
     name: "Pasta",
-    filter: (productData: Stripe.Price[]) =>
-      productData.filter(
-        (p): p is Stripe.Price & { product: Stripe.Product } =>
-          typeof p.product !== "string" &&
-          "metadata" in p.product &&
-          p.product.metadata.category === "Pasta"
-      ),
+    filter: (productData: Product[]) =>
+      productData.filter((p) => p.category === "Pasta"),
   },
   {
     id: "5",
     name: "Meat",
-    filter: (productData: Stripe.Price[]) =>
-      productData.filter(
-        (p): p is Stripe.Price & { product: Stripe.Product } =>
-          typeof p.product !== "string" &&
-          "metadata" in p.product &&
-          p.product.metadata.category === "Meat"
-      ),
+    filter: (productData: Product[]) =>
+      productData.filter((p) => p.category === "Meat"),
   },
   {
     id: "6",
     name: "Desserts",
-    filter: (productData: Stripe.Price[]) =>
-      productData.filter(
-        (p): p is Stripe.Price & { product: Stripe.Product } =>
-          typeof p.product !== "string" &&
-          "metadata" in p.product &&
-          p.product.metadata.category === "Desserts"
-      ),
+    filter: (productData: Product[]) =>
+      productData.filter((p) => p.category === "Desserts"),
   },
 ];
 
-const FilterMenu = ({ prices }: { prices: Stripe.Price[] }) => {
-  const [filteredData, setFilteredData] = useState<Stripe.Price[]>([]);
+const FilterMenu = ({ products }: { products: Product[] }) => {
+  const [filteredData, setFilteredData] = useState<Product[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>("All");
 
   const handleFilterClick = (
-    filter: (productData: Stripe.Price[]) => Stripe.Price[],
+    filter: (productData: Product[]) => Product[],
     name: string
   ) => {
-    setFilteredData(filter(prices));
+    setFilteredData(filter(products));
     setActiveFilter(name);
   };
 
@@ -100,15 +75,22 @@ const FilterMenu = ({ prices }: { prices: Stripe.Price[] }) => {
       <div className="my-4">
         {filteredData.length > 0 ? (
           <div className="mx-auto flex max-w-[1300px] flex-wrap justify-center gap-8 py-4">
-            {filteredData.map((product) => (
-              <ProductCart key={product.id} product={product} />
-            ))}
+            {filteredData
+              .sort((a, b) =>
+                a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+              )
+              .map((product) => (
+                <ProductCart key={product.id} product={product} />
+              ))}
           </div>
         ) : (
           <div className="mx-auto flex max-w-[1300px] flex-wrap justify-center gap-8 py-4">
-            {prices.map((p) => (
-              <ProductCart key={p.id} product={p} />
-            ))}
+            {products &&
+              products
+                .sort((a, b) =>
+                  a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+                )
+                .map((p) => <ProductCart key={p.id} product={p} />)}
           </div>
         )}
       </div>

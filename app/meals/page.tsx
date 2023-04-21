@@ -1,13 +1,9 @@
+import { prisma } from "@/lib/prismadb";
 import FilterMenu from "./FilterMenu";
-import { stripe } from "@/lib/stripe";
 
-async function getStripeProducts() {
-  const res = await stripe.prices.list({
-    expand: ["data.product"],
-    limit: 100,
-  });
-  const prices = res.data;
-  return prices;
+async function getProducts() {
+  const res = await prisma.product.findMany();
+  return res;
 }
 
 export const metadata = {
@@ -16,10 +12,10 @@ export const metadata = {
 };
 
 export default async function MealsPage() {
-  const products = await getStripeProducts();
+  const products = await getProducts();
   return (
     <div className="flex flex-col gap-4">
-      <FilterMenu prices={products} />
+      <FilterMenu products={products} />
     </div>
   );
 }

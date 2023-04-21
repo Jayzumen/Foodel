@@ -1,8 +1,7 @@
 "use client";
+import Stripe from "stripe";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import React from "react";
-import Stripe from "stripe";
 import { LoadingSpinner } from "../components/loadingFunctions";
 
 const OrderDetails = () => {

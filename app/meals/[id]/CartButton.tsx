@@ -1,19 +1,18 @@
 "use client";
 
-import Stripe from "stripe";
 import { toast } from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Product } from "@prisma/client";
 
-const CartButton = ({ price }: { price: Stripe.Response<Stripe.Price> }) => {
+const CartButton = ({ product }: { product: Product }) => {
   const { user } = useUser();
 
-  const product = price.product as Stripe.Product;
   const productData = {
-    id: price.id,
+    id: product.id,
     name: product.name,
-    image: product.images[0],
-    price: price.unit_amount_decimal as string,
+    image: product.image,
+    price: product.price.toString(),
     quantity: 1,
   };
 
