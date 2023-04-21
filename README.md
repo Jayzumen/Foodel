@@ -1,6 +1,6 @@
 # Foodel
 
-Foodel is a web application for ordering Italian meals online. It is built with Next.js v13, Prisma, TypeScript, Tailwind, and Stripe, and uses Supabase as a database. The app allows users to browse the menu, select items to order, and make payments securely online.
+Foodel is a web application for ordering Italian meals online. It is built with Next.js v13, Prisma, TypeScript, Tailwind, and Stripe, and uses PlanetScale as a database. The app allows users to browse the menu, select items to order, and make payments securely online.
 
 ## Getting Started
 
