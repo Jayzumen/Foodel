@@ -13,6 +13,7 @@ export const metadata = {
 
 export default async function MealsPage() {
   const products = await getProducts();
+
   return (
     <div className="flex flex-col gap-4">
       <FilterMenu products={products} />
