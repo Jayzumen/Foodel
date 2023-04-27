@@ -4,6 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
+    unoptimized: true,
     domains: ["files.stripe.com"],
   },
 };
