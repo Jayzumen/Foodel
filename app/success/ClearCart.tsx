@@ -26,7 +26,7 @@ const ClearCart = ({ user }: { user: User | null }) => {
     if (user) {
       clearItems();
     }
-  }, [user, clearItems]);
+  }, [user]);
 
   return (
     <Link aria-label="Go to home page" className="hover:underline" href={"/"}>
