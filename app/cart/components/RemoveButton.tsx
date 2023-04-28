@@ -1,13 +1,11 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { CartProduct } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { type User } from "next-auth";
 import { AiOutlineDelete } from "react-icons/ai";
 
-const RemoveButton = ({ data }: { data: CartProduct }) => {
-  const { user } = useUser();
-
+const RemoveButton = ({ data, user }: { data: CartProduct; user: User }) => {
   async function removeItem(id: string) {
     await fetch(`/api/meals/${id}`, {
       method: "DELETE",
@@ -22,7 +20,7 @@ const RemoveButton = ({ data }: { data: CartProduct }) => {
 
   const removeMutation = useMutation(removeItem, {
     onSuccess: () => {
-      queryClient.invalidateQueries([`cartItems for ${user?.id}`]);
+      queryClient.invalidateQueries(["cartItems", user?.email]);
     },
   });
 

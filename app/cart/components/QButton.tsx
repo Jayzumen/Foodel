@@ -1,12 +1,11 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import { CartProduct } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { User } from "next-auth";
 import { useState } from "react";
 
-const AddButton = ({ data }: { data: CartProduct }) => {
-  const { user } = useUser();
+const AddButton = ({ data, user }: { data: CartProduct; user: User }) => {
   const [selectedQuantity, setSelectedQuantity] = useState(data.quantity);
 
   async function updateQuantity(props: { id: string; quantity: number }) {
@@ -24,7 +23,7 @@ const AddButton = ({ data }: { data: CartProduct }) => {
 
   const updateMutation = useMutation(updateQuantity, {
     onSuccess: () => {
-      queryClient.invalidateQueries([`cartItems for ${user?.id}`]);
+      queryClient.invalidateQueries(["cartItems", user?.email]);
       queryClient.invalidateQueries([`${data.name}`]);
     },
   });

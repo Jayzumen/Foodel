@@ -36,7 +36,7 @@ export default async function MealPage({ params }: { params: { id: string } }) {
         href={"/meals"}
       >
         <AiOutlineArrowLeft size={30} />
-        <p className="text-xl">Go back</p>
+        <p className="text-xl">Go to Meals</p>
       </Link>
       {product && (
         <div className="flex flex-col items-center gap-2">

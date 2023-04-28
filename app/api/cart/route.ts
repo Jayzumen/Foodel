@@ -1,14 +1,17 @@
 import { prisma } from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs/app-beta";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function DELETE(req: Request) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user;
 
   try {
     const cart = await prisma.cart.findUnique({
       where: {
-        userId: userId!,
+        userId: user?.email!,
       },
     });
 
@@ -16,7 +19,7 @@ export async function DELETE(req: Request) {
 
     await prisma.cart.delete({
       where: {
-        userId: userId!,
+        userId: user?.email!,
       },
     });
     return NextResponse.json("Deleted");

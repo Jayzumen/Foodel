@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { User } from "@clerk/nextjs/dist/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { type Session, User } from "next-auth";
 
-const ClearCart = ({ user }: { user: User | null }) => {
+const ClearCart = ({ session }: { session: Session | null }) => {
   const queryClient = useQueryClient();
+
+  const user = session?.user as User;
 
   async function clearItems() {
     try {
@@ -16,17 +18,17 @@ const ClearCart = ({ user }: { user: User | null }) => {
           "Content-Type": "application/json",
         },
       });
-      queryClient.setQueryData([`cartItems for ${user?.id}`], []);
+      queryClient.setQueryData(["cartItems", user?.email], []);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    if (user) {
+    if (session) {
       clearItems();
     }
-  }, [user]);
+  }, [session]);
 
   return (
     <Link aria-label="Go to home page" className="hover:underline" href={"/"}>

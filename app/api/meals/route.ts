@@ -1,15 +1,18 @@
 import { prisma } from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs/app-beta";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { type User, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
 
-  if (!userId) return NextResponse.json([]);
+  const user = session?.user as User;
+
+  if (!user) return NextResponse.json([]);
 
   const cartData = await prisma.cart.findFirst({
     where: {
-      userId: userId!,
+      userId: user?.email!,
     },
   });
 
@@ -27,7 +30,10 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user;
+
   const { id, name, image, price }: CartItem = await req.json();
 
   const productData = {
@@ -41,7 +47,7 @@ export async function POST(req: Request) {
   try {
     const cartData = await prisma.cart.findUnique({
       where: {
-        userId: userId!,
+        userId: user?.email!,
       },
     });
 
@@ -51,7 +57,7 @@ export async function POST(req: Request) {
       where: {
         cartId: cartData?.id,
         productId: productData.id,
-        userId: userId!,
+        userId: user?.email!,
       },
     });
 
@@ -70,7 +76,7 @@ export async function POST(req: Request) {
           data: {
             cartId: cartData.id,
             productId: productData.id,
-            userId: userId!,
+            userId: user?.email!,
             name: productData.name,
             image: productData.image,
             price: productData.price,
@@ -81,7 +87,7 @@ export async function POST(req: Request) {
     } else {
       const cart = await prisma.cart.create({
         data: {
-          userId: userId!,
+          userId: user?.email!,
           products: {},
         },
       });
@@ -90,7 +96,7 @@ export async function POST(req: Request) {
         data: {
           cartId: cart.id,
           productId: productData.id,
-          userId: userId!,
+          userId: user?.email!,
           name: productData.name,
           image: productData.image,
           price: productData.price,

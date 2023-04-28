@@ -1,16 +1,17 @@
-import { currentUser } from "@clerk/nextjs/app-beta";
 import ClearCart from "./ClearCart";
 import { redirect } from "next/navigation";
 import OrderDetails from "./OrderDetails";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export const metadata = {
   title: "Foodel - Payment successful",
 };
 
 export default async function SuccessPage() {
-  const user = await currentUser();
+  const session = await getServerSession(authOptions);
 
-  if (!user) {
+  if (!session) {
     redirect("/");
   }
 
@@ -20,7 +21,7 @@ export default async function SuccessPage() {
       <OrderDetails />
       <p>Thank you for your purchase</p>
       <p>Enjoy your meal</p>
-      <ClearCart user={user} />
+      <ClearCart session={session} />
     </div>
   );
 }

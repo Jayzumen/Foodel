@@ -4,13 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import CheckOutButton from "./CheckOutButton";
 import { getCartItemsQ } from "./CartItemDisplay";
 import { CartProduct } from "@prisma/client";
-import { useUser } from "@clerk/nextjs";
 import { LoadingSpinner } from "../../components/loadingFunctions";
+import { type User } from "next-auth";
 
-const Checkout = () => {
-  const { user } = useUser();
+const Checkout = ({ user }: { user: User | undefined }) => {
   const { data: cartTotal, status } = useQuery(
-    [`cartItems for ${user?.id}`],
+    ["cartItems", user?.email],
     getCartItemsQ
   );
 

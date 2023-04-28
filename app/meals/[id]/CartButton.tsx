@@ -1,12 +1,15 @@
 "use client";
 
 import { toast } from "react-hot-toast";
-import { useUser } from "@clerk/nextjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Product } from "@prisma/client";
+import { type User } from "next-auth";
+import { useSession } from "next-auth/react";
 
 const CartButton = ({ product }: { product: Product }) => {
-  const { user } = useUser();
+  const { data: session } = useSession();
+
+  const user = session?.user as User;
 
   const productData = {
     id: product.id,
@@ -39,7 +42,7 @@ const CartButton = ({ product }: { product: Product }) => {
 
   const cartMutation = useMutation(addToCart, {
     onSuccess: () => {
-      queryClient.invalidateQueries([`cartItems for ${user?.id}`]);
+      queryClient.invalidateQueries(["cartItems", user?.email]);
     },
   });
 

@@ -7,6 +7,7 @@ import RemoveButton from "./RemoveButton";
 import { useQuery } from "@tanstack/react-query";
 import { CartProduct } from "@prisma/client";
 import { LoadingSpinner } from "@/app/components/loadingFunctions";
+import { User } from "next-auth";
 
 export async function getCartItem(id: string) {
   const res = await fetch(`/api/meals/${id}`, {
@@ -19,7 +20,7 @@ export async function getCartItem(id: string) {
   return data as CartProduct;
 }
 
-const CartItem = ({ item }: { item: CartProduct }) => {
+const CartItem = ({ item, user }: { item: CartProduct; user: User }) => {
   const { data, status } = useQuery([`${item.name}`], () =>
     getCartItem(item.productId)
   );
@@ -63,8 +64,8 @@ const CartItem = ({ item }: { item: CartProduct }) => {
                 )}
               </p>
               <div className="flex items-center justify-center gap-2">
-                <QButton data={data} />
-                <RemoveButton data={data} />
+                <QButton data={data} user={user} />
+                <RemoveButton data={data} user={user} />
               </div>
             </div>
           </div>

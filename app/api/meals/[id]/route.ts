@@ -1,16 +1,19 @@
 import { prisma } from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs/app-beta";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user;
 
   const userCart = await prisma.cart.findFirst({
     where: {
-      userId: userId!,
+      userId: user?.email!,
     },
   });
 
@@ -28,13 +31,16 @@ export async function POST(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user;
+
   const quantity: number = await req.json();
 
   try {
     const userCart = await prisma.cart.findFirst({
       where: {
-        userId: userId!,
+        userId: user?.email!,
       },
     });
 
@@ -66,12 +72,14 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { userId } = auth();
+  const session = await getServerSession(authOptions);
+
+  const user = session?.user;
 
   try {
     const userCart = await prisma.cart.findFirst({
       where: {
-        userId: userId!,
+        userId: user?.email!,
       },
     });
 

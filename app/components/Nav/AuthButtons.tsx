@@ -1,30 +1,41 @@
 "use client";
 
-import {
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useClerk,
-} from "@clerk/nextjs/app-beta/client";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "../loadingFunctions";
+import CartLink from "./CartLink";
+import { User } from "next-auth";
 
-const AuthButtons = () => {
-  const { openSignIn } = useClerk();
+const AuthLinks = () => {
+  const { data: session, status } = useSession();
+  const user = session?.user as User;
+
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut()
+      .then(() => router.refresh())
+      .catch(console.error);
+  };
   return (
-    <div className="pl-4">
-      <SignedIn>
-        <UserButton
-          afterSignOutUrl={
-            process.env.NODE_ENV === "development"
-              ? "http://localhost:3000/"
-              : "https://foodel-jn.vercel.app/"
-          }
-        />
-      </SignedIn>
-      <SignedOut>
-        <button onClick={() => openSignIn()}>Sign In</button>
-      </SignedOut>
-    </div>
+    <>
+      {status === "loading" ? (
+        <LoadingSpinner size={25} />
+      ) : status === "authenticated" ? (
+        <div className="flex items-center gap-6">
+          <CartLink user={user} />
+          <button className="hover:underline" onClick={handleSignOut}>
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link className="hover:underline" href={"/login"}>
+          Login
+        </Link>
+      )}
+    </>
   );
 };
 
-export default AuthButtons;
+export default AuthLinks;

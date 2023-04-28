@@ -3,7 +3,9 @@ import CartItem from "./CartItem";
 import { useQuery } from "@tanstack/react-query";
 import Checkout from "./Checkout";
 import { CartProduct } from "@prisma/client";
-import { useUser } from "@clerk/nextjs";
+import { LoadingPage } from "@/app/components/loadingFunctions";
+import { useSession } from "next-auth/react";
+import { type User } from "next-auth";
 
 export async function getCartItemsQ() {
   const res = await fetch("/api/meals", {
@@ -12,35 +14,33 @@ export async function getCartItemsQ() {
       "Content-Type": "application/json",
     },
   });
-  const data = await res.json();
-  return data as CartProduct[];
+  const data = (await res.json()) as CartProduct[];
+  return data;
 }
 
-const CartItemDisplay = ({ cartItems }: { cartItems: CartProduct[] }) => {
-  const { user } = useUser();
+const CartItemDisplay = () => {
+  const { data: session } = useSession();
 
-  const { data, status } = useQuery(
-    [`cartItems for ${user?.id}`],
-    getCartItemsQ,
-    {
-      initialData: cartItems,
-    }
-  );
+  const user = session?.user as User;
+
+  const { data, status } = useQuery(["cartItems", user?.email], getCartItemsQ);
 
   return (
     <div className="my-4 flex flex-col items-center gap-4">
-      {cartItems.length === 0 ? (
-        <p className="text-center text-2xl">Your cart is empty</p>
+      {status === "loading" ? (
+        <LoadingPage />
       ) : status === "error" ? (
         <p>Error</p>
+      ) : data.length === 0 ? (
+        <p className="text-center text-2xl">Your cart is empty</p>
       ) : (
         <div className="flex flex-wrap justify-center gap-4">
-          {data && <Checkout />}
+          {data && <Checkout user={user} />}
           <div className="flex flex-col justify-center gap-8 px-10 py-4">
             {data
               ?.sort((a, b) => a.name.toLowerCase().localeCompare(b.name))
               .map((item) => (
-                <CartItem key={item.id} item={item} />
+                <CartItem key={item.id} item={item} user={user} />
               ))}
           </div>
         </div>

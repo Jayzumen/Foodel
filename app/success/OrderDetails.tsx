@@ -7,7 +7,8 @@ import { LoadingSpinner } from "../components/loadingFunctions";
 const OrderDetails = () => {
   const searchParams = useSearchParams();
 
-  const sessionId = searchParams.get("session_id");
+  const sessionId = searchParams?.get("session_id");
+
   async function getOrderDetails() {
     try {
       const response = await fetch(`/api/checkout/${sessionId}`, {
