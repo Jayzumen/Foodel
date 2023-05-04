@@ -36,7 +36,7 @@ const MealDisplay = () => {
   return (
     <div>
       <h2 className="my-6 text-3xl font-semibold text-green-500">
-        Specialties of today:
+        Specialties of the day:
       </h2>
       <div className="flex flex-wrap justify-center gap-6 px-10 py-4">
         {status === "loading" ? (
