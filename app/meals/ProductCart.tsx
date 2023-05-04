@@ -8,22 +8,27 @@ const ProductCart = ({ product }: { product: Product }) => {
     <Link
       aria-label="Go to meal page"
       href={`/meals/${product.id.split("_")[1]}`}
-      className="flex flex-col items-center gap-2"
+      className="group flex flex-col items-center gap-2"
     >
       <div className="relative h-[275px] w-[275px]">
         <Image
-          className="object-cover"
+          className="object-cover transition duration-200 group-hover:opacity-80"
           fill
           src={product.image}
           alt={product.name}
         />
       </div>
-      <p className="text-xl">{`${product.name} (${(
-        product.price / 100
-      ).toLocaleString("de", {
-        style: "currency",
-        currency: "EUR",
-      })})`}</p>
+      <div className="flex flex-col items-center transition duration-200 group-hover:text-green-800 dark:group-hover:text-green-500">
+        <p className="text-xl group-hover:underline">{product.name}</p>
+        <span className="text-xl">
+          (
+          {(product.price / 100).toLocaleString("de", {
+            style: "currency",
+            currency: "EUR",
+          })}
+          )
+        </span>
+      </div>
     </Link>
   );
 };

@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className}`}>
+      <body className={`${poppins.className} bg-green-100 dark:bg-zinc-950`}>
         <MainProvider>
           <Navbar />
           <main className="min-h-[calc(100vh-80px)]">{children}</main>

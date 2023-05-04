@@ -44,17 +44,27 @@ const MealDisplay = () => {
           <Link
             key={p.id}
             href={`/meals/${p.id.split("_")[1]}`}
-            className="flex flex-col gap-2"
+            className="group flex flex-col gap-2"
           >
             <div className="relative h-[300px] w-[300px]">
-              <Image fill className="object-cover" src={p.image} alt={p.name} />
+              <Image
+                fill
+                className="object-cover transition duration-200 group-hover:opacity-80"
+                src={p.image}
+                alt={p.name}
+              />
             </div>
-            <p className="text-xl">{`${p.name} (${(
-              p.price / 100
-            ).toLocaleString("de", {
-              style: "currency",
-              currency: "EUR",
-            })})`}</p>
+            <div className="flex flex-col items-center transition duration-200 group-hover:text-green-800 dark:group-hover:text-green-500">
+              <p className="text-xl group-hover:underline">{p.name}</p>
+              <span className="text-xl">
+                (
+                {(p.price / 100).toLocaleString("de", {
+                  style: "currency",
+                  currency: "EUR",
+                })}
+                )
+              </span>
+            </div>
           </Link>
         ))
       )}

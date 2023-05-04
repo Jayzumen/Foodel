@@ -55,16 +55,16 @@ const FilterMenu = ({ products }: { products: Product[] }) => {
   };
 
   return (
-    <div>
+    <>
       <ul className="mt-4 flex flex-wrap justify-center gap-2">
         {Filter.map(({ id, name, filter }) => (
           <li key={id}>
             <button
               onClick={() => handleFilterClick(filter, name)}
-              className={`rounded-lg px-4 py-2 ${
+              className={`rounded-lg px-4 py-2 text-white ${
                 name === activeFilter
-                  ? "bg-sky-700 hover:bg-sky-600"
-                  : "bg-slate-700 hover:bg-slate-600"
+                  ? "bg-green-700 hover:bg-green-600"
+                  : "bg-zinc-800 hover:bg-zinc-700"
               }`}
             >
               {name}
@@ -94,7 +94,7 @@ const FilterMenu = ({ products }: { products: Product[] }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
