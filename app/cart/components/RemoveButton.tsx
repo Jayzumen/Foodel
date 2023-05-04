@@ -27,12 +27,12 @@ const RemoveButton = ({ data, user }: { data: CartProduct; user: User }) => {
   return (
     <button
       aria-label="Remove meal from cart"
-      title="Remove Meal"
+      title="Delete"
       onClick={() => removeMutation.mutate(data.productId)}
     >
       <AiOutlineDelete
         size={35}
-        className="m-2 rounded-full transition-colors duration-200 hover:text-slate-400"
+        className="m-2 transition-colors duration-200 hover:text-green-500"
       />
     </button>
   );

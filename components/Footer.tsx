@@ -6,14 +6,14 @@ export default function Footer() {
       <div className="flex gap-4">
         <Link
           aria-label="link to About page"
-          className="hover:underline"
+          className="transition duration-200 hover:text-green-500 hover:underline"
           href={"/about"}
         >
           About
         </Link>
         <Link
           aria-label="link to Impressum page"
-          className="hover:underline"
+          className="transition duration-200 hover:text-green-500 hover:underline"
           href={"/impressum"}
         >
           Impressum

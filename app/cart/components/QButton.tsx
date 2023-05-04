@@ -33,7 +33,7 @@ const AddButton = ({ data, user }: { data: CartProduct; user: User }) => {
       aria-label="Select quantity"
       name="quantity"
       id="product-quantity"
-      className="cursor-pointer rounded-sm py-1 text-xs font-medium text-black transition-colors hover:bg-neutral-100 active:bg-white md:text-sm"
+      className="cursor-pointer rounded-sm bg-green-500 px-2 py-1 text-base font-semibold transition-colors duration-200 hover:bg-green-600"
       value={selectedQuantity}
       onChange={(e) => {
         setSelectedQuantity(Number(e.target.value));

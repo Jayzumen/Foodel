@@ -38,7 +38,7 @@ const OrderDetails = () => {
   }
 
   return (
-    <div className="mx-auto flex w-fit justify-center gap-4 rounded-lg border p-4">
+    <div className="mx-auto flex w-fit justify-center gap-4 rounded-lg border border-green-500 p-4">
       <p>Your Order:</p>
       <div className="flex flex-col justify-center gap-4 px-10 py-4">
         {status === "loading" ? (

@@ -19,7 +19,7 @@ export default function ImpressumPage() {
           <Link
             target="_blank"
             aria-label="Link to Unsplash.com"
-            className="text-sky-600 hover:underline"
+            className="text-green-500 hover:underline"
             href={"https://unsplash.com/"}
           >
             Unsplash.com
@@ -39,7 +39,7 @@ export default function ImpressumPage() {
           <span className="font-semibold italic">Jan-Niklas Reinhardt</span>
           <Link
             target="_blank"
-            className="hover:text-white"
+            className="hover:text-green-500"
             aria-label="Link to Github"
             href={"https://github.com/Jayzumen"}
           >

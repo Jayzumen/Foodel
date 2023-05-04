@@ -6,7 +6,6 @@ export default function AboutPage() {
   return (
     <div className="mx-auto my-4 flex max-w-7xl flex-col items-center gap-4 px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:flex-col sm:items-center">
-        {/* <img src={logo} alt="Foodel logo" className="mx-auto h-24 w-auto mb-6" /> */}
         <h2 className="text-center text-3xl font-extrabold sm:text-4xl">
           About Foodel
         </h2>
