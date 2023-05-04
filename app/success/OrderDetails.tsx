@@ -2,7 +2,7 @@
 import Stripe from "stripe";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { LoadingSpinner } from "../components/loadingFunctions";
+import { LoadingSpinner } from "../../components/loadingFunctions";
 
 const OrderDetails = () => {
   const searchParams = useSearchParams();

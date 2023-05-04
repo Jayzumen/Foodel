@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 import { useQuery } from "@tanstack/react-query";
 import Checkout from "./Checkout";
 import { CartProduct } from "@prisma/client";
-import { LoadingPage } from "@/app/components/loadingFunctions";
+import { LoadingPage } from "@/components/loadingFunctions";
 import { useSession } from "next-auth/react";
 import { type User } from "next-auth";
 

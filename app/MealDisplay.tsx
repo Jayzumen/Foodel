@@ -4,7 +4,7 @@ import { Product } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { LoadingSpinner } from "./components/loadingFunctions";
+import { LoadingSpinner } from "../components/loadingFunctions";
 
 const MealDisplay = () => {
   async function getProducts() {

@@ -6,7 +6,7 @@ import QButton from "./QButton";
 import RemoveButton from "./RemoveButton";
 import { useQuery } from "@tanstack/react-query";
 import { CartProduct } from "@prisma/client";
-import { LoadingSpinner } from "@/app/components/loadingFunctions";
+import { LoadingSpinner } from "@/components/loadingFunctions";
 import { User } from "next-auth";
 
 export async function getCartItem(id: string) {

@@ -25,12 +25,18 @@ const AuthLinks = () => {
       ) : status === "authenticated" ? (
         <div className="flex items-center gap-6">
           <CartLink user={user} />
-          <button className="hover:underline" onClick={handleSignOut}>
+          <button
+            className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-xl font-bold text-transparent hover:text-green-400 md:text-2xl"
+            onClick={handleSignOut}
+          >
             Logout
           </button>
         </div>
       ) : (
-        <Link className="hover:underline" href={"/login"}>
+        <Link
+          className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-xl font-bold text-transparent hover:text-green-400 md:text-2xl"
+          href={"/login"}
+        >
           Login
         </Link>
       )}

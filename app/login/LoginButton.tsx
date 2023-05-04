@@ -4,7 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { LoadingPage } from "../components/loadingFunctions";
+import { LoadingPage } from "../../components/loadingFunctions";
 
 const LoginButton = () => {
   const { status } = useSession();

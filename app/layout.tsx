@@ -1,6 +1,14 @@
-import Navbar from "./components/Nav/Navbar";
+import Navbar from "../components/Nav/Navbar";
 import "./globals.css";
-import { MainProvider } from "./components/providers/providers";
+import { MainProvider } from "../components/providers/providers";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  style: "normal",
+  weight: ["200", "400", "600", "700", "900"],
+  fallback: ["sans-serif", "system-ui"],
+  subsets: ["latin-ext", "latin"],
+});
 
 export const metadata = {
   title: "Foodel",
@@ -14,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-900 text-white">
+      <body className={`${poppins.className}`}>
         <MainProvider>
           <Navbar />
           <main className="min-h-[calc(100vh-80px)]">{children}</main>

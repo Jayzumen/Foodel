@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import CheckOutButton from "./CheckOutButton";
 import { getCartItemsQ } from "./CartItemDisplay";
 import { CartProduct } from "@prisma/client";
-import { LoadingSpinner } from "../../components/loadingFunctions";
+import { LoadingSpinner } from "../../../components/loadingFunctions";
 import { type User } from "next-auth";
 
 const Checkout = ({ user }: { user: User | undefined }) => {

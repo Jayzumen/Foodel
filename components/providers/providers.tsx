@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "next-themes";
 
 const QueryProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,14 +22,20 @@ const ToastProvider = () => {
   return <Toaster position="bottom-center" reverseOrder={false} />;
 };
 
+const ThemeProviders = ({ children }: { children: React.ReactNode }) => {
+  return <ThemeProvider attribute="class">{children}</ThemeProvider>;
+};
+
 export const MainProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryProvider>
-      <AuthProvider>
-        {children}
-        <ToastProvider />
-        <ReactQueryDevtools />
-      </AuthProvider>
+      <ThemeProviders>
+        <AuthProvider>
+          {children}
+          <ToastProvider />
+          <ReactQueryDevtools />
+        </AuthProvider>
+      </ThemeProviders>
     </QueryProvider>
   );
 };
