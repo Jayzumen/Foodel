@@ -30,7 +30,7 @@ const AuthLinks = () => {
           <button
             className="font-bold transition duration-200 hover:text-green-500 hover:underline"
             onClick={() => {
-              handleSignOut;
+              handleSignOut();
               menuStore.toggle();
             }}
           >
