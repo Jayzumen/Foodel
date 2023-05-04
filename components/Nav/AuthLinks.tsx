@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "../loadingFunctions";
 import CartLink from "./CartLink";
 import { User } from "next-auth";
+import { useNavMenu } from "@/stores/navMenu";
 
 const AuthLinks = () => {
   const { data: session, status } = useSession();
   const user = session?.user as User;
 
   const router = useRouter();
+  const menuStore = useNavMenu();
 
   const handleSignOut = () => {
     signOut()
@@ -23,19 +25,23 @@ const AuthLinks = () => {
       {status === "loading" ? (
         <LoadingSpinner size={25} />
       ) : status === "authenticated" ? (
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
           <CartLink user={user} />
           <button
-            className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-xl font-bold text-transparent hover:text-green-400 md:text-2xl"
-            onClick={handleSignOut}
+            className="font-bold transition duration-200 hover:text-green-500 hover:underline"
+            onClick={() => {
+              handleSignOut;
+              menuStore.toggle();
+            }}
           >
             Logout
           </button>
         </div>
       ) : (
         <Link
-          className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-xl font-bold text-transparent hover:text-green-400 md:text-2xl"
+          className="font-bold transition duration-200 hover:text-green-500 hover:underline"
           href={"/login"}
+          onClick={() => menuStore.toggle()}
         >
           Login
         </Link>

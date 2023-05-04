@@ -21,9 +21,17 @@ const MealDisplay = () => {
     return randomProducts;
   }
 
-  const { data: products, status } = useQuery(["products"], getProducts, {
-    refetchInterval: 30000,
-  });
+  const { data: products, status } = useQuery(
+    ["products of the day"],
+    getProducts,
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      staleTime: 1000 * 60 * 60 * 24,
+      cacheTime: 1000 * 60 * 60 * 24,
+    }
+  );
 
   return (
     <div className="flex flex-wrap justify-center gap-6 px-10 py-4">

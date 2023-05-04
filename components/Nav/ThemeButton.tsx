@@ -5,27 +5,24 @@ import { BsSun, BsMoon } from "react-icons/bs";
 
 const ThemeButton = () => {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
   const { resolvedTheme, setTheme } = useTheme();
 
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return null;
+  }
   return (
     <>
-      {mounted && (
-        <button
-          aria-label="Toggle Dark Mode"
-          type="button"
-          title="Toggle Dark Mode"
-          className="flex items-center rounded bg-gradient-to-r from-green-400 to-blue-500 p-2"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        >
-          {resolvedTheme === "dark" ? (
-            <BsSun size={20} />
-          ) : (
-            <BsMoon size={20} />
-          )}
-        </button>
-      )}
+      <button
+        aria-label="Toggle Dark Mode"
+        type="button"
+        title="Toggle Dark Mode"
+        className="flex items-center rounded bg-slate-400 p-2 text-white dark:bg-slate-800"
+        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      >
+        {resolvedTheme === "dark" ? <BsSun size={20} /> : <BsMoon size={20} />}
+      </button>
     </>
   );
 };
