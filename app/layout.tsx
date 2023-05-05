@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={`${poppins.className} bg-green-100 dark:bg-zinc-950`}>
         <MainProvider>
           <Navbar />

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { LoadingSpinner } from "../components/loadingFunctions";
+import { motion } from "framer-motion";
 
 const MealDisplay = () => {
   async function getProducts() {
@@ -40,36 +41,45 @@ const MealDisplay = () => {
       </h2>
       <div className="flex flex-wrap justify-center gap-6 px-10 py-4">
         {status === "loading" ? (
-          <LoadingSpinner size={100} />
+          <div className="min-h-[600px]">
+            <LoadingSpinner size={100} />
+          </div>
         ) : status === "error" ? (
           <p>Error</p>
         ) : (
           products.map((p) => (
-            <Link
+            <motion.div
+              transition={{ delay: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               key={p.id}
-              href={`/meals/${p.id.split("_")[1]}`}
-              className="group flex flex-col gap-2"
             >
-              <div className="relative h-[300px] w-[300px]">
-                <Image
-                  fill
-                  className="object-cover transition duration-200 group-hover:opacity-80"
-                  src={p.image}
-                  alt={p.name}
-                />
-              </div>
-              <div className="flex flex-col items-center transition duration-200 group-hover:text-green-800 dark:group-hover:text-green-500">
-                <p className="text-xl group-hover:underline">{p.name}</p>
-                <span className="text-xl">
-                  (
-                  {(p.price / 100).toLocaleString("de", {
-                    style: "currency",
-                    currency: "EUR",
-                  })}
-                  )
-                </span>
-              </div>
-            </Link>
+              <Link
+                href={`/meals/${p.id.split("_")[1]}`}
+                className="group flex flex-col gap-2"
+              >
+                <div className="relative h-[300px] w-[300px]">
+                  <Image
+                    fill
+                    className="object-cover transition duration-200 group-hover:opacity-80"
+                    src={p.image}
+                    alt={p.name}
+                  />
+                </div>
+                <div className="flex flex-col items-center transition duration-200 group-hover:text-green-800 dark:group-hover:text-green-500">
+                  <p className="text-xl group-hover:underline">{p.name}</p>
+                  <span className="text-xl">
+                    (
+                    {(p.price / 100).toLocaleString("de", {
+                      style: "currency",
+                      currency: "EUR",
+                    })}
+                    )
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
           ))
         )}
       </div>

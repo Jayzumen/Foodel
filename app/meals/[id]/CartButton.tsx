@@ -49,7 +49,7 @@ const CartButton = ({ product }: { product: Product }) => {
   return (
     <button
       aria-label="Add to cart button"
-      className="rounded-lg border border-slate-700 bg-green-700 px-4 py-2 text-2xl font-semibold text-slate-200 hover:bg-green-800 "
+      className="my-4 rounded-lg border border-slate-700 bg-green-700 px-4 py-2 text-2xl font-semibold text-slate-200 hover:bg-green-800 "
       onClick={() => cartMutation.mutate(productData)}
     >
       Add to Cart

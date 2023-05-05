@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CartProduct } from "@prisma/client";
 import { LoadingSpinner } from "@/components/loadingFunctions";
 import { User } from "next-auth";
+import { motion } from "framer-motion";
 
 export async function getCartItem(id: string) {
   const res = await fetch(`/api/meals/${id}`, {
@@ -33,7 +34,11 @@ const CartItem = ({ item, user }: { item: CartProduct; user: User }) => {
         <p>Error</p>
       ) : (
         data && (
-          <div
+          <motion.div
+            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             key={data.id}
             className="flex flex-col items-center justify-center gap-4 md:flex-row md:gap-8"
           >
@@ -68,7 +73,7 @@ const CartItem = ({ item, user }: { item: CartProduct; user: User }) => {
                 <RemoveButton data={data} user={user} />
               </div>
             </div>
-          </div>
+          </motion.div>
         )
       )}
     </>
