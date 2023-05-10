@@ -13,7 +13,7 @@ const ClearCart = ({ session }: { session: Session | null }) => {
   async function clearItems() {
     try {
       await fetch("/api/cart", {
-        method: "DELETE",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

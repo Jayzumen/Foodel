@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prismadb";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function DELETE(req: Request) {
+// Need to use PUT instead of DELETE because of Next problem
+export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
 
   const user = session?.user;

@@ -8,7 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 const RemoveButton = ({ data, user }: { data: CartProduct; user: User }) => {
   async function removeItem(id: string) {
     await fetch(`/api/meals/${id}`, {
-      method: "DELETE",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

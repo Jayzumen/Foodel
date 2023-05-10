@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prismadb";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(
   req: Request,
@@ -68,7 +68,8 @@ export async function POST(
   }
 }
 
-export async function DELETE(
+// Need to use PUT instead of DELETE because of Next problem
+export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
 ) {

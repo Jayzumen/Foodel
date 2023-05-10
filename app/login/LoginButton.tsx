@@ -10,8 +10,20 @@ const LoginButton = () => {
   const { status } = useSession();
   const router = useRouter();
 
-  const handleLogin = (name: string) => {
-    signIn(name)
+  const handleLogin = (name?: string) => {
+    signIn(name, {
+      redirect: false,
+    })
+      .then(() => router.refresh())
+      .catch(console.error);
+  };
+
+  const testLogin = async () => {
+    await signIn("credentials", {
+      email: "test@test.com",
+      username: "TestUser",
+      redirect: false,
+    })
       .then(() => router.refresh())
       .catch(console.error);
   };
@@ -28,15 +40,22 @@ const LoginButton = () => {
     <div className="flex flex-col gap-6">
       <button
         onClick={() => handleLogin("github")}
-        className="flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+        className="mx-auto flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
       >
         Login with <FaGithub size={30} />
       </button>
       <button
         onClick={() => handleLogin("google")}
-        className="flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+        className="mx-auto flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
       >
         Login with <FcGoogle size={30} />
+      </button>
+
+      <button
+        onClick={testLogin}
+        className="flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+      >
+        Login as TestUser
       </button>
     </div>
   );

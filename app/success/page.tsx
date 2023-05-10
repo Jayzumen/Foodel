@@ -2,7 +2,7 @@ import ClearCart from "./ClearCart";
 import { redirect } from "next/navigation";
 import OrderDetails from "./OrderDetails";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata = {
   title: "Foodel - Payment successful",
