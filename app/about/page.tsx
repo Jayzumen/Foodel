@@ -1,10 +1,11 @@
 export const metadata = {
-  title: "Foodel - About",
+  title: "Foodel | About",
+  description: "About Foodel",
 };
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto my-4 flex max-w-7xl flex-col items-center gap-4 px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 p-4 sm:p-6 lg:p-8">
       <div className="sm:flex sm:flex-col sm:items-center">
         <h2 className="text-center text-3xl font-extrabold sm:text-4xl">
           About Foodel

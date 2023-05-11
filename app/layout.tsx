@@ -2,6 +2,7 @@ import Navbar from "../components/Nav/Navbar";
 import "./globals.css";
 import { MainProvider } from "../components/providers/providers";
 import { Poppins } from "next/font/google";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   style: "normal",
@@ -22,10 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={`${poppins.className} bg-green-100 dark:bg-zinc-950`}>
+      <body className={`${poppins.className} bg-zinc-100 dark:bg-zinc-950`}>
         <MainProvider>
           <Navbar />
-          <main className="min-h-[calc(100vh-80px)]">{children}</main>
+          <main className="min-h-[calc(100vh-160px)]">{children}</main>
+          <Footer />
         </MainProvider>
       </body>
     </html>

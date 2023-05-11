@@ -56,7 +56,7 @@ const FilterMenu = ({ products }: { products: Product[] }) => {
 
   return (
     <>
-      <ul className="mt-4 flex flex-wrap justify-center gap-2">
+      <ul className="flex flex-wrap justify-center gap-2 p-4">
         {Filter.map(({ id, name, filter }) => (
           <li key={id}>
             <button

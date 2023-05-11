@@ -1,7 +1,8 @@
 import CartItemDisplay from "./components/CartItemDisplay";
 
 export const metadata = {
-  title: "Foodel - Cart",
+  title: "Foodel | Cart",
+  description: "Your cart",
 };
 
 export default function CartPage() {

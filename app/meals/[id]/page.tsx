@@ -16,7 +16,7 @@ async function getProduct(id: string) {
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const product = await getProduct(params.id);
   return {
-    title: product?.name,
+    title: "Foodel | " + product?.name,
     description: product?.description,
   };
 }

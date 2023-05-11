@@ -40,20 +40,20 @@ const LoginButton = () => {
     <div className="flex flex-col gap-6">
       <button
         onClick={() => handleLogin("github")}
-        className="mx-auto flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+        className="mx-auto flex gap-4 rounded-lg border border-slate-800 px-4 py-2 text-2xl transition duration-300 hover:scale-105 hover:bg-slate-800 hover:text-white"
       >
         Login with <FaGithub size={30} />
       </button>
       <button
         onClick={() => handleLogin("google")}
-        className="mx-auto flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+        className="mx-auto flex gap-4 rounded-lg border border-slate-800 px-4 py-2 text-2xl transition duration-300 hover:scale-105 hover:bg-slate-800 hover:text-white"
       >
         Login with <FcGoogle size={30} />
       </button>
 
       <button
         onClick={testLogin}
-        className="flex gap-4 rounded-lg border px-4 py-2 text-2xl transition duration-300 hover:scale-105"
+        className="flex gap-4 rounded-lg border border-slate-800 px-4 py-2 text-2xl transition duration-300 hover:scale-105 hover:bg-slate-800 hover:text-white"
       >
         Login as TestUser
       </button>
