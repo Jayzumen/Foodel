@@ -32,8 +32,10 @@ export default function ImpressumPage() {
         </p>
         <p>
           Foodel is a fictitious brand created for educational purposes only.
-          This website and its content are not affiliated with any real
-          restaurant or food service provider.
+          All payments are simulated and no real money is involved. This website
+          is only a demo and not a real food delivery service. This website and
+          its content are not affiliated with any real restaurant or food
+          service provider.
         </p>
         <p className="flex gap-2">
           This website is a project created by{" "}
